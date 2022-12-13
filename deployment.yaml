@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node
+  labels:
+    app: node
+spec:
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+        - name: node
+          image: micro1-img
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Never # Image should not be pulled
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node
+spec:
+  type: ClusterIP
+  selector:
+    app: node
+  ports:
+  - port: 3000

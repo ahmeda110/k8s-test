@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node2
+  labels:
+    app: node2
+spec:
+  selector:
+    matchLabels:
+      app: node2
+  template:
+    metadata:
+      labels:
+        app: node2
+    spec:
+      containers:
+        - name: node
+          image: node-img2
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Never # Image should not be pulled
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node2
+spec:
+  type: ClusterIP
+  selector:
+    app: node2
+  ports:
+  - port: 3000
